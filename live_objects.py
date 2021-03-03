@@ -33,20 +33,23 @@ class Player(LiveObject):
         self.speed[0] = speed[0]
         self.speed[1] += speed[1]
 
+    def rotate_weapon(self, pos):
+        self.weapon.rotate(pos)
+
+    def shoot(self, pos):
+        if pygame.mouse.get_pressed(num_buttons=3)[0]:
+            self.weapon.throw(pos)
+
     def command(self):
         pressed_keys = pygame.key.get_pressed()
-        pressed_mouse = pygame.mouse.get_pressed(num_buttons=3)
-        m_pos = pygame.mouse.get_pos()
-
-        if self.weapon:
-            self.weapon.rotate(m_pos)
-
-            if pressed_mouse[0]:
-                self.weapon.throw(m_pos)
 
         if pressed_keys[pygame.K_u] and pygame.sprite.spritecollideany(self, sprites.all_sprites):
             self.rect.x += 10
             self.rect.y -= 10
+
+        if pressed_keys[pygame.K_j] and pygame.sprite.spritecollideany(self, sprites.all_sprites):
+            self.rect.x -= 10
+            self.rect.y += 10
 
         if pressed_keys[pygame.K_d] and not self.d_press:
             self.move([1, 0])
@@ -67,16 +70,17 @@ class Player(LiveObject):
         if pressed_keys[pygame.K_SPACE]:
             if pressed_keys[pygame.K_d]:
                 if not self.IN_AIR:
-                    self.rect.y -= 10
-                    self.move([1, -3])
+                    self.rect.y -= 5
+                    self.move([1, -2])
             elif pressed_keys[pygame.K_a]:
                 if not self.IN_AIR:
-                    self.rect.y -= 10
-                    self.move([-1, -3])
+                    self.rect.y -= 5
+                    self.move([-1, -2])
             else:
                 if not self.IN_AIR:
-                    self.rect.y -= 10
-                    self.move([0, -3])
+                    self.rect.y -= 5
+                    self.move([0, -2])
+
 
 
 

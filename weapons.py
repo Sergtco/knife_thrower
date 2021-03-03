@@ -65,7 +65,7 @@ class Knife(Weapon):
             norm = math.sqrt(distance[0] ** 2 + distance[1] ** 2)
             direction = [distance[0] / norm, distance[1] / norm]
             bullet_vector = [direction[0] * math.sqrt(2), direction[1] * math.sqrt(2)]
-            self.speed = [int(i * 50) / 8 for i in bullet_vector]
+            self.speed = [i * 10 for i in bullet_vector]
             self.thrown = True
 
         if not self.in_hands and self.thrown:
