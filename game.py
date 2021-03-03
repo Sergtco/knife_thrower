@@ -3,18 +3,18 @@ import sprites
 import live_objects
 import environment
 import weapons
-import main
+import constants
 
 
 class Execute:
-    screen = pygame.display.set_mode((main.WIDTH, main.HEIGHT))
+    screen = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
     screen.fill('black')
 
     clock = pygame.time.Clock()
     fps = 300
 
     player = live_objects.Player((50, 200))
-    knife = weapons.Knife(player)
+    player.weapon = weapons.Knife(player)
     floor = environment.Floor((0, 400), (1000, 30))
     wall = environment.Wall((1000, 0), (20, 400))
 
@@ -27,13 +27,10 @@ class Execute:
                 player.command()
 
             if event.type == pygame.MOUSEMOTION:
-                knife.rotate(event.pos)
+                player.command()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                knife.throw(event.pos)
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+                player.command()
 
         screen.fill('black')
 
